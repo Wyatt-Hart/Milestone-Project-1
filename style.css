@@ -1,0 +1,15 @@
+#container {
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    margin: auto;
+}
+
+canvas {
+    border: 1px solid black;
+    display: inline;
+}
+h1 {
+    text-align: center;
+    font-family: 'MedievalSharp', cursive;
+}
