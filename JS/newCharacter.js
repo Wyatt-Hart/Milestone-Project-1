@@ -8,12 +8,14 @@ let currentDirection = charIdle
 let characterImg = new Image();
 characterImg.src = currentDirection
 
+const MOVEMENT_SPEED = 30
 
 let player = {
     x:10,
-    y:310,
+    y:(310),
     height: 64,
-    width: 64
+    width: 64,
+    jumpHeight: (310 - (MOVEMENT_SPEED * 4))
 }
 
 
@@ -23,7 +25,6 @@ let canvasContext = canvas.getContext('2d')
 const characterScale = 3;
 const scaledWidth = characterScale * player.width;
 const scaledHeight = characterScale * player.height
-const MOVEMENT_SPEED = 30
 
 let positionX = 0
 let keyPresses = {}
@@ -71,6 +72,11 @@ window.addEventListener("keydown", (e)=>{
 window.addEventListener("keyup", (e)=>{
     if (e.key == "ArrowUp"){
         hasJumped = false
+        if (player.y != 310){
+            while(player.y < 310){
+                jumpDown()
+            }
+        }
     }
     delete keys[e.key]
 })
@@ -95,46 +101,35 @@ function movePlayer(){
         characterImg.x--
         console.log('Idle')
     }
-    if (keys["ArrowUp"] && hasJumped == false){
+    if (keys["ArrowUp"]){
         jump()
     }
 }
 
-let jumpIndex = 0
 
-async function jump(){
-    await jumpUp()
-    jumpDown()
+function jump(){
+    if(hasJumped == false){
+        jumpUp()
+    }else{
+        jumpDown()
+    }
 }
 function jumpUp(){
-    setTimeout(()=>{
-        if (keys["ArrowUp"] && player.y == 310 && hasJumped == false){
-            jumpIndex = 0
-            while ( jumpIndex < 120 ){
-                player.y = player.y -  1
-                jumpIndex++
-                characterImg.src = charJump
-            }
-            if ( player.y < 251){
-                hasJumped = true
-            }
-        }
-    },)
-    return jumpIndex
+    characterImg.src = charJump
+    if (keys["ArrowUp"] && player.y > player.jumpHeight){
+        player.y = player.y -  MOVEMENT_SPEED
+    }
+    if(player.y <= player.jumpHeight){
+        hasJumped = true
+    }
 }
 function jumpDown(){
-    setTimeout(()=>{
-        if(jumpIndex>=120){
-            while ( jumpIndex > 0  && player.y != 310){
-                player.y = player.y + 1
-                jumpIndex--
-            }
-        }
-        if(hasJumped && characterImg.src != currentDirection){
-            characterImg.src = currentDirection
-        }
-    }, 100)
-    return jumpIndex
+    if(player.y != 310){
+        player.y = player.y + MOVEMENT_SPEED
+    }
+    if(player.y == 310 && characterImg.src != currentDirection){
+        characterImg.src = currentDirection
+    }
 }
 
 
