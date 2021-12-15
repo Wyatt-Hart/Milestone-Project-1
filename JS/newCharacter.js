@@ -7,9 +7,8 @@ let currentDirection = charIdle
 
 let characterImg = new Image();
 characterImg.src = currentDirection
-characterImg.onload = function(){
-    window.requestAnimationFrame(step)
-}
+
+
 let player = {
     x:10,
     y:310,
@@ -24,7 +23,7 @@ let canvasContext = canvas.getContext('2d')
 const characterScale = 3;
 const scaledWidth = characterScale * player.width;
 const scaledHeight = characterScale * player.height
-const MOVEMENT_SPEED = 15
+const MOVEMENT_SPEED = 30
 
 let positionX = 0
 let keyPresses = {}
@@ -55,8 +54,6 @@ function step(){
         canvasContext.clearRect( 0, 0, canvas.width, canvas.height )
         drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
         currentXLoopIndex++
-        movePlayer()
-    window.requestAnimationFrame(step)
     }, 100)
 }
 
@@ -103,9 +100,13 @@ function movePlayer(){
     }
 }
 
-movePlayer()
+let jumpIndex = 0
+
 async function jump(){
-    let jumpIndex
+    await jumpUp()
+    jumpDown()
+}
+function jumpUp(){
     setTimeout(()=>{
         if (keys["ArrowUp"] && player.y == 310 && hasJumped == false){
             jumpIndex = 0
@@ -119,11 +120,13 @@ async function jump(){
             }
         }
     },)
+    return jumpIndex
+}
+function jumpDown(){
     setTimeout(()=>{
-        jumpIndex = 60
-        if(jumpIndex>=60){
+        if(jumpIndex>=120){
             while ( jumpIndex > 0  && player.y != 310){
-                player.y = player.y + (MOVEMENT_SPEED * 2)
+                player.y = player.y + 1
                 jumpIndex--
             }
         }
@@ -131,7 +134,14 @@ async function jump(){
             characterImg.src = currentDirection
         }
     }, 100)
-    if(hasJumped && characterImg.src != currentDirection){
-        characterImg.src = currentDirection
-    }
+    return jumpIndex
 }
+
+
+function gameLoop(){
+    window.requestAnimationFrame(step)
+    movePlayer()
+}
+setInterval(()=>{
+    gameLoop()
+}, 1000/15)
