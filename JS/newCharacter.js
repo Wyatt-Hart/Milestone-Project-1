@@ -19,9 +19,6 @@ let player = {
 }
 
 
-let canvas = document.querySelector('canvas')
-let canvasContext = canvas.getContext('2d')
-
 const characterScale = 3;
 const scaledWidth = characterScale * player.width;
 const scaledHeight = characterScale * player.height
@@ -64,79 +61,3 @@ function drawFrame(frameX, frameY, canvasX, canvasY){
                             frameX * player.width, frameY * player.height, player.width * 2, player.height,
                             player.x, player.y, scaledWidth * 2, scaledHeight)
 }
-
-
-window.addEventListener("keydown", (e)=>{
-    keys[e.key] = true
-})
-window.addEventListener("keyup", (e)=>{
-    if (e.key == "ArrowUp"){
-        hasJumped = false
-        if (player.y != 310){
-            while(player.y < 310){
-                jumpDown()
-            }
-        }
-    }
-    delete keys[e.key]
-})
-function movePlayer(){
-    if (keys["ArrowRight"] && player.x < canvas.width - (player.width * 4)){
-        player.x += MOVEMENT_SPEED
-        if(currentDirection == charIdle){
-            currentDirection = FACING_RIGHT
-            characterImg.src = currentDirection
-        }
-        console.log('run right')
-    }else if (keys["ArrowLeft"] && player.x > -140){
-        player.x -= MOVEMENT_SPEED
-        if(currentDirection == charIdle){
-            currentDirection = FACING_LEFT
-            characterImg.src = currentDirection
-        }
-        console.log('run left')
-    }else if (isIdle && currentDirection != charIdle){
-        currentDirection = charIdle
-        characterImg.src = currentDirection
-        characterImg.x--
-        console.log('Idle')
-    }
-    if (keys["ArrowUp"]){
-        jump()
-    }
-}
-
-
-function jump(){
-    if(hasJumped == false){
-        jumpUp()
-    }else{
-        jumpDown()
-    }
-}
-function jumpUp(){
-    characterImg.src = charJump
-    if (keys["ArrowUp"] && player.y > player.jumpHeight){
-        player.y = player.y -  MOVEMENT_SPEED
-    }
-    if(player.y <= player.jumpHeight){
-        hasJumped = true
-    }
-}
-function jumpDown(){
-    if(player.y != 310){
-        player.y = player.y + MOVEMENT_SPEED
-    }
-    if(player.y == 310 && characterImg.src != currentDirection){
-        characterImg.src = currentDirection
-    }
-}
-
-
-function gameLoop(){
-    window.requestAnimationFrame(step)
-    movePlayer()
-}
-setInterval(()=>{
-    gameLoop()
-}, 1000/15)

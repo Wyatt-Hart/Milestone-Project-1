@@ -1,42 +1,62 @@
-//I'm trying to create a function to move the character based on the JS Webgame we
-//worked on, but I don't think I can move the sprite inside the canvas this way
-
-function move(character) {
-    let direction = null
-    let x = screenLeft
-    let y = bottom
-
-    character.style.left = x + 'px'
-    character.style.bottom = y + 'px'
-
-    function moveCharacter(){
-        if(direction == 'left'){
-            x-=1
+window.addEventListener("keydown", (e)=>{
+    keys[e.key] = true
+})
+window.addEventListener("keyup", (e)=>{
+    if (e.key == "ArrowUp"){
+        hasJumped = false
+        if (player.y != 310){
+            while(player.y < 310){
+                jumpDown()
+            }
         }
-        if(direction == 'right'){
-            x+=1
-        }
-        character.style.left = x + 'px'
     }
-
-    setInterval(moveCharacter, 1);
-
-    document.addEventListener('keydown', (e)=>{
-        if(e.repeat) return;
-
-        if(e.key === 'KeyA'){
-            direction = 'left'
-            console.log('left')
+    delete keys[e.key]
+})
+function movePlayer(){
+    if (keys["ArrowRight"] && player.x < canvas.width - (player.width * 4)){
+        player.x += MOVEMENT_SPEED
+        if(currentDirection == charIdle){
+            currentDirection = FACING_RIGHT
+            characterImg.src = currentDirection
         }
-        if(e.key === 'KeyD'){
-            direction = 'right'
-            console.log('right')
+    }else if (keys["ArrowLeft"] && player.x > -140){
+        player.x -= MOVEMENT_SPEED
+        if(currentDirection == charIdle){
+            currentDirection = FACING_LEFT
+            characterImg.src = currentDirection
         }
-        callback(direction)
-    })
+    }else if (isIdle && currentDirection != charIdle){
+        currentDirection = charIdle
+        characterImg.src = currentDirection
+        characterImg.x--
+    }
+    if (keys["ArrowUp"]){
+        jump()
+    }
+}
 
-    document.addEventListener('keyup', (e)=>{
-        direction = null
-        callback(direction)
-    })
+
+function jump(){
+    if(hasJumped == false){
+        jumpUp()
+    }else{
+        jumpDown()
+    }
+}
+function jumpUp(){
+    characterImg.src = charJump
+    if (keys["ArrowUp"] && player.y > player.jumpHeight){
+        player.y = player.y -  MOVEMENT_SPEED
+    }
+    if(player.y <= player.jumpHeight){
+        hasJumped = true
+    }
+}
+function jumpDown(){
+    if(player.y != 310){
+        player.y = player.y + MOVEMENT_SPEED
+    }
+    if(player.y == 310 && characterImg.src != currentDirection){
+        characterImg.src = currentDirection
+    }
 }
