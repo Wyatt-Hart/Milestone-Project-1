@@ -13,7 +13,7 @@ window.addEventListener("keyup", (e)=>{
     delete keys[e.key]
 })
 function movePlayer(){
-    if (isAttacking == true){
+    if (isAttacking == true && player.y == 310){
         return
     }
     if (keys["ArrowRight"] && player.x < canvas.width - (player.width * 4)){
@@ -50,7 +50,11 @@ function jump(){
     }
 }
 function jumpUp(){
-    characterImg.src = charJump
+    if (currentDirection != charAirAttack){
+        characterImg.src = charJump
+    }else{
+        characterImg.src = charAirAttack
+    }
     if (keys["ArrowUp"] && player.y > player.jumpHeight){
         player.y = player.y -  (MOVEMENT_SPEED * 1.5)
     }

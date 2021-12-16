@@ -4,6 +4,7 @@ let FACING_RIGHT = './assets/Main_Character/Run_Right.png'
 let FACING_LEFT = './assets/Main_Character/Run_Left.png'
 let charJump = './assets/Main_Character/Jump.png'
 let charCrouch = './assets/Main_Character/crouch_idle.png'
+let charAirAttack = './assets/Main_Character/attack_from_air.png'
 let currentDirection = charIdle
 
 let characterImg = new Image();
@@ -60,6 +61,13 @@ function step(){
             currentXLoopIndex = 0
             currentYLoopIndex = 0
             animationIndex = 0
+        }
+    }, 10)
+    setTimeout(()=>{
+        drawEnemyFrame( enemyAnimationIndex, enemyCurrentYIndex, 0, 0 )
+        enemyAnimationIndex++
+        if (enemyAnimationIndex > 7){
+            enemyAnimationIndex = 0
         }
     }, 10)
 }
