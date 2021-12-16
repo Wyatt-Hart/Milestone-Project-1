@@ -30,3 +30,46 @@ h1 {
     text-align: center;
     font-family: 'MedievalSharp', cursive;
 }
+#healthBars{
+    display: flex;
+    justify-content: space-between;
+}
+div[id*="Healthbar"]{
+    display: inline-block;
+    width: 25vw;
+}
+img[id*="Icon"] {
+    width: 4.5vw;
+    height: 4.5vw;
+    margin-top: 10px;
+    margin-left: 0.9vw;
+    margin-right: 0.9vw;
+    background-color: #FFDEAD;
+    border-radius: 100%;
+    box-shadow: inset 0 0 10px black;
+}
+#playerHealthbar {
+    background-image: url('./assets/Health_Bar/player_health_bar.png');
+    background-size: 100%;
+    margin-left: 2vw;
+    text-align: left;
+}
+#enemyHealthbar {
+    background-image: url('./assets/Health_Bar/enemy_health_bar.png');
+    background-size: 100%;
+    margin-right: 2vw;
+    text-align: right;
+}
+img[id*="HealthIndicator"]{
+    width: 77%;
+    top: -1vw;
+    position: relative;
+    margin-left: -0.6vw;
+    margin-right: -0.3vw;
+}
+#playerHealthIndicator {
+    left: -0.75vw;
+}
+#enemyHealthIndicator {
+    right: -0.75vw;
+}

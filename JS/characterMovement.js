@@ -52,7 +52,7 @@ function jump(){
 function jumpUp(){
     characterImg.src = charJump
     if (keys["ArrowUp"] && player.y > player.jumpHeight){
-        player.y = player.y -  MOVEMENT_SPEED
+        player.y = player.y -  (MOVEMENT_SPEED * 1.5)
     }
     if(player.y <= player.jumpHeight){
         hasJumped = true
@@ -60,7 +60,7 @@ function jumpUp(){
 }
 function jumpDown(){
     if(player.y != 310){
-        player.y = player.y + MOVEMENT_SPEED
+        player.y = player.y + (MOVEMENT_SPEED * 1.5)
     }
     if(player.y == 310 && characterImg.src != currentDirection){
         characterImg.src = currentDirection

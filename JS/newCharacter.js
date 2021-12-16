@@ -16,7 +16,7 @@ let player = {
     y:(310),
     height: 64,
     width: 64,
-    jumpHeight: (310 - (MOVEMENT_SPEED * 4))
+    jumpHeight: (310 - (MOVEMENT_SPEED * 7))
 }
 
 
