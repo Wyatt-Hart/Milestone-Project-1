@@ -5,6 +5,7 @@ body {
     z-index: -2;
     background-color: #EECD9C;
     background-image: url('./assets/Background/Daedric-Text.png');
+    background-position-y: -3vh;
     position: absolute;
     width: 99vw;
     text-align: center;
@@ -20,6 +21,7 @@ canvas {
 #background{
     position: absolute;
     z-index: -1;
+    background-color: black;
 }
 h1 {
     font-size: 4rem;

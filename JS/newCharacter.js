@@ -3,6 +3,7 @@ let charIdle = './assets/Main_Character/Idle.png'
 let FACING_RIGHT = './assets/Main_Character/Run_Right.png'
 let FACING_LEFT = './assets/Main_Character/Run_Left.png'
 let charJump = './assets/Main_Character/Jump.png'
+let charCrouch = './assets/Main_Character/crouch_idle.png'
 let currentDirection = charIdle
 
 let characterImg = new Image();
@@ -28,8 +29,10 @@ let keyPresses = {}
 
 let hasJumped = false
 
-const animationLoopX = [0, 1]
-const animationLoopY = [0, 1, 2, 3]
+let animationLoopX = [0, 1]
+let animationLoopY = [0, 1, 2, 3]
+let animationIndex = 0
+let animationMax = 8
 let currentXLoopIndex = 0
 let currentYLoopIndex = 0
 let frameCount = 0
@@ -42,17 +45,23 @@ function idleCheck(){
 function step(){
     idleCheck()
     setTimeout(()=>{
-        if(currentXLoopIndex >= 2){
+        if(currentXLoopIndex >= animationLoopX.length){
             currentXLoopIndex = 0
             currentYLoopIndex++
-            if(currentYLoopIndex >= 4){
+            if(currentYLoopIndex >= animationLoopY.length){
                 currentYLoopIndex = 0
             }
         }
         canvasContext.clearRect( 0, 0, canvas.width, canvas.height )
         drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
         currentXLoopIndex++
-    }, 100)
+        animationIndex++
+        if (animationIndex > animationMax){
+            currentXLoopIndex = 0
+            currentYLoopIndex = 0
+            animationIndex = 0
+        }
+    }, 10)
 }
 
 

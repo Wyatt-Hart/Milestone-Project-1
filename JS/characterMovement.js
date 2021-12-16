@@ -13,18 +13,24 @@ window.addEventListener("keyup", (e)=>{
     delete keys[e.key]
 })
 function movePlayer(){
+    if (isAttacking == true){
+        return
+    }
     if (keys["ArrowRight"] && player.x < canvas.width - (player.width * 4)){
         player.x += MOVEMENT_SPEED
-        if(currentDirection == charIdle){
+        if(currentDirection == charIdle || currentDirection == charCrouch){
             currentDirection = FACING_RIGHT
             characterImg.src = currentDirection
         }
     }else if (keys["ArrowLeft"] && player.x > -140){
         player.x -= MOVEMENT_SPEED
-        if(currentDirection == charIdle){
+        if(currentDirection == charIdle || currentDirection == charCrouch){
             currentDirection = FACING_LEFT
             characterImg.src = currentDirection
         }
+    }else if (keys["ArrowDown"]){
+        currentDirection = charCrouch
+        characterImg.src = currentDirection
     }else if (isIdle && currentDirection != charIdle){
         currentDirection = charIdle
         characterImg.src = currentDirection

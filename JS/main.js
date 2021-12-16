@@ -1,6 +1,7 @@
 let canvas = document.querySelector('#gameCanvas')
 let canvasContext = canvas.getContext('2d')
-
+let framerate = 15            //This number equals our desired frames per second
+framerate = 1000 / framerate  //this takes one second, and divides it by our chosen framerate, I just thought this was more readeable
 function makeBackground(){
     let backgroundCanvas = document.querySelector('#background')
     let backgroundContext = backgroundCanvas.getContext('2d')
@@ -22,12 +23,12 @@ function makeBackground(){
 }
 
 
-
 function gameLoop(){
     window.requestAnimationFrame(step)
     movePlayer()
+    attack()
     makeBackground()
 }
 setInterval(()=>{
     gameLoop()
-}, 1000/15)
+}, framerate)
