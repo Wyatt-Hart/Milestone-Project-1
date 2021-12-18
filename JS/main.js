@@ -1,5 +1,5 @@
-let canvas = document.querySelector('#gameCanvas')
-let canvasContext = canvas.getContext('2d')
+let playerCanvas = document.querySelector('#playerCanvas')
+let playerCanvasContext = playerCanvas.getContext('2d')
 let framerate = 15            //This number equals our desired frames per second
 framerate = 1000 / framerate  //this takes one second, and divides it by our chosen framerate, I just thought this was more readeable
 function makeBackground(){
@@ -15,11 +15,11 @@ function makeBackground(){
     backgroundImg3.src = './assets/Background/03_background.png'
     backgroundImg4.src = './assets/Background/04_background.png'
     backgroundImg5.src = './assets/Background/05_background.png'
-    backgroundContext.drawImage(backgroundImg1, 0, 0, 425, 380, 0, 0, canvas.width, canvas.height)
-    backgroundContext.drawImage(backgroundImg2, 0, 0, 425, 380, 0, 0, canvas.width, canvas.height)
-    backgroundContext.drawImage(backgroundImg3, 0, 0, 425, 380, 0, 0, canvas.width, canvas.height)
-    backgroundContext.drawImage(backgroundImg4, 0, 0, 425, 380, 0, 0, canvas.width, canvas.height)
-    backgroundContext.drawImage(backgroundImg5, 0, 0, 425, 380, 0, 0, canvas.width, canvas.height)
+    backgroundContext.drawImage(backgroundImg1, 0, 0, 425, 380, 0, 0, backgroundCanvas.width, backgroundCanvas.height)
+    backgroundContext.drawImage(backgroundImg2, 0, 0, 425, 380, 0, 0, backgroundCanvas.width, backgroundCanvas.height)
+    backgroundContext.drawImage(backgroundImg3, 0, 0, 425, 380, 0, 0, backgroundCanvas.width, backgroundCanvas.height)
+    backgroundContext.drawImage(backgroundImg4, 0, 0, 425, 380, 0, 0, backgroundCanvas.width, backgroundCanvas.height)
+    backgroundContext.drawImage(backgroundImg5, 0, 0, 425, 380, 0, 0, backgroundCanvas.width, backgroundCanvas.height)
 }
 
 

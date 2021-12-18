@@ -13,28 +13,60 @@ window.addEventListener("keyup", (e)=>{
     delete keys[e.key]
 })
 function movePlayer(){
-    if (isAttacking == true && player.y == 310){
-        return
-    }
-    if (keys["ArrowRight"] && player.x < canvas.width - (player.width * 4)){
-        player.x += MOVEMENT_SPEED
-        if(currentDirection == charIdle || currentDirection == charCrouch){
-            currentDirection = FACING_RIGHT
-            characterImg.src = currentDirection
+    if (((cDVEnemy+cDVPlayer) < 0.94 || (cDVEnemy+cDVPlayer) > 1.06) || player.y != 310){
+        if (isAttacking == true && player.y == 310){
+            return
         }
-    }else if (keys["ArrowLeft"] && player.x > -140){
-        player.x -= MOVEMENT_SPEED
-        if(currentDirection == charIdle || currentDirection == charCrouch){
-            currentDirection = FACING_LEFT
+        if (keys["ArrowRight"] && player.x < playerCanvas.width - (player.width * 4)){
+            player.x += MOVEMENT_SPEED
+            if(currentDirection == charIdle || currentDirection == charCrouch){
+                currentDirection = FACING_RIGHT
+                characterImg.src = currentDirection
+            }
+        }else if (keys["ArrowLeft"] && player.x > -140){
+            player.x -= MOVEMENT_SPEED
+            if(currentDirection == charIdle || currentDirection == charCrouch){
+                currentDirection = FACING_LEFT
+                characterImg.src = currentDirection
+            }
+        }else if (keys["ArrowDown"]){
+            currentDirection = charCrouch
             characterImg.src = currentDirection
+        }else if (isIdle && currentDirection != charIdle){
+            currentDirection = charIdle
+            characterImg.src = currentDirection
+            characterImg.x--
         }
-    }else if (keys["ArrowDown"]){
-        currentDirection = charCrouch
-        characterImg.src = currentDirection
-    }else if (isIdle && currentDirection != charIdle){
-        currentDirection = charIdle
-        characterImg.src = currentDirection
-        characterImg.x--
+    }else if((cDVEnemy+cDVPlayer) >= 0.94 && (cDVEnemy+cDVPlayer) < 0.98){
+        if (keys["ArrowLeft"] && player.x > -140){
+            player.x -= MOVEMENT_SPEED
+            if(currentDirection == charIdle || currentDirection == charCrouch){
+                currentDirection = FACING_LEFT
+                characterImg.src = currentDirection
+            }
+        }else if (keys["ArrowDown"]){
+            currentDirection = charCrouch
+            characterImg.src = currentDirection
+        }else if (isIdle && currentDirection != charIdle){
+            currentDirection = charIdle
+            characterImg.src = currentDirection
+            characterImg.x--
+        }
+    }else if((cDVEnemy+cDVPlayer) >= 0.98 && (cDVEnemy+cDVPlayer) < 1.06){
+        if (keys["ArrowRight"] && player.x < playerCanvas.width - (player.width * 4)){
+            player.x += MOVEMENT_SPEED
+            if(currentDirection == charIdle || currentDirection == charCrouch){
+                currentDirection = FACING_RIGHT
+                characterImg.src = currentDirection
+            }
+        }else if (keys["ArrowDown"]){
+            currentDirection = charCrouch
+            characterImg.src = currentDirection
+        }else if (isIdle && currentDirection != charIdle){
+            currentDirection = charIdle
+            characterImg.src = currentDirection
+            characterImg.x--
+        }
     }
     if (keys["ArrowUp"]){
         jump()

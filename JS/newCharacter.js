@@ -13,13 +13,13 @@ characterImg.src = currentDirection
 const MOVEMENT_SPEED = 30
 
 let player = {
-    x:10,
+    x:200, //far left is -150, far right is 1245
     y:(310),
     height: 64,
     width: 64,
     jumpHeight: (310 - (MOVEMENT_SPEED * 7))
 }
-
+let cDVPlayer
 
 const characterScale = 3;
 const scaledWidth = characterScale * player.width;
@@ -44,6 +44,8 @@ function idleCheck(){
     isIdle = (!keys["ArrowRight"] && !keys["ArrowLeft"] && !keys["ArrowDown"] && !keys["ArrowUp"])
 }
 function step(){
+cDVPlayer = (player.x + 150)/1395 //collisionDetectionVariable player
+
     idleCheck()
     setTimeout(()=>{
         if(currentXLoopIndex >= animationLoopX.length){
@@ -53,7 +55,8 @@ function step(){
                 currentYLoopIndex = 0
             }
         }
-        canvasContext.clearRect( 0, 0, canvas.width, canvas.height )
+        playerCanvasContext.clearRect( 0, 0, playerCanvas.width, playerCanvas.height )
+        enemyCanvasContext.clearRect( 0, 0, enemyCanvas.width, enemyCanvas.height )
         drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
         currentXLoopIndex++
         animationIndex++
@@ -74,7 +77,7 @@ function step(){
 
 
 function drawFrame(frameX, frameY, canvasX, canvasY){
-    canvasContext.drawImage(characterImg,
+    playerCanvasContext.drawImage(characterImg,
                             frameX * player.width, frameY * player.height, player.width * 2, player.height,
                             player.x, player.y, scaledWidth * 2, scaledHeight)
 }
