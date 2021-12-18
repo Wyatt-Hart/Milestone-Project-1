@@ -13,6 +13,7 @@ let enemy = {
     width: 112,
     jumpHeight: (77 - (eMOVEMENT_SPEED * 7))
 }
+
 /* if (eFACING_LEFT == true){
     enemy.x = -enemy.x
 } */
@@ -28,9 +29,11 @@ let enemyAnimationIndex = 0
 let enemyCurrentYIndex = 0
 let cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
 
+
+
 function drawEnemyFrame(frameX, frameY, canvasX, canvasY){
     let cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
-
+    
     if (eFACING_LEFT == true){
         enemyCanvasContext.setTransform(-1, 0, 0, 1, scaledEnemyWidth * 2, 0);
     }else if (eFACING_LEFT == false){

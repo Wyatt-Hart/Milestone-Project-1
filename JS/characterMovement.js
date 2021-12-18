@@ -73,12 +73,32 @@ function movePlayer(){
     }
 }
 
+let hasFlipped = false
 
 function jump(){
     if(hasJumped == false){
         jumpUp()
     }else{
         jumpDown()
+    }
+    if ((cDVEnemy+cDVPlayer) >= 0.98 && (cDVEnemy+cDVPlayer) < 1.06 && hasFlipped == false && eFACING_LEFT != false){
+        eFACING_LEFT = false
+        if (enemy.x < 0 && hasFlipped == false){
+            enemy.x = Math.abs(enemy.x)
+            hasFlipped == true
+        }else if (enemy.x > 0 && hasFlipped == false){
+            enemy.x = -1 * Math.abs(enemy.x)
+            hasFlipped == true
+        }
+    }else if((cDVEnemy+cDVPlayer) >= 0.94 && (cDVEnemy+cDVPlayer) < 0.98){
+        eFACING_LEFT = true
+        if (enemy.x < 0 && hasFlipped == false){
+            enemy.x = Math.abs(enemy.x)
+            hasFlipped == true
+        }else if (enemy.x > 0 && hasFlipped == false){
+            enemy.x = -1 * Math.abs(enemy.x)
+            hasFlipped == true
+        }
     }
 }
 function jumpUp(){

@@ -28,6 +28,7 @@ canvas {
     position: relative;
     top: -640px;
     margin-bottom: -600px;
+    z-index: -1;
 }
 #background{
     position: absolute;
