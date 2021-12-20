@@ -1,5 +1,8 @@
 let isAttacking = false
 function attack(){
+    if (((cDVEnemy+cDVPlayer) >= 0.92 && (cDVEnemy+cDVPlayer) <= 1.07) && enemy.health > 0 && keys["1"] && characterImg.src != charIdle){
+        enemy.health = enemy.health - 1
+    }
     if ( keys["1"] && isAttacking == false){
         isAttacking = true
         if(player.y < 310){

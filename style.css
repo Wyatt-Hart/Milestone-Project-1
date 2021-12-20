@@ -74,6 +74,7 @@ img[id*="Icon"] {
 }
 img[id*="HealthIndicator"]{
     width: 77%;
+    height: 40;
     top: -1vw;
     position: relative;
     margin-left: -0.6vw;

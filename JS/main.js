@@ -1,7 +1,7 @@
 let playerCanvas = document.querySelector('#playerCanvas')
 let playerCanvasContext = playerCanvas.getContext('2d')
 let framerate = 15            //This number equals our desired frames per second
-framerate = 1000 / framerate  //this takes one second, and divides it by our chosen framerate, I just thought this was more readeable
+framerate = 1000 / framerate  //this takes one second, and divides it by our chosen framerate, I just thought this was more readable
 function makeBackground(){
     let backgroundCanvas = document.querySelector('#background')
     let backgroundContext = backgroundCanvas.getContext('2d')

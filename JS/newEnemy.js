@@ -7,16 +7,15 @@ let eFACING_LEFT = true
 const eMOVEMENT_SPEED = 30
 
 let enemy = {
-    x:-600, //far left is 350, far right is -1000
+    x:-600, //far left is 350, far right is -1000, default - 600
     y:(77),
     height: 224,
     width: 112,
-    jumpHeight: (77 - (eMOVEMENT_SPEED * 7))
+    jumpHeight: (77 - (eMOVEMENT_SPEED * 7)),
+    health: 100,
+    healthBar: document.querySelector("#enemyHealthIndicator")
 }
 
-/* if (eFACING_LEFT == true){
-    enemy.x = -enemy.x
-} */
 
 const enemyScale = 3.8;
 const scaledEnemyWidth = enemyScale * enemy.width;
@@ -32,8 +31,11 @@ let cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
 
 
 function drawEnemyFrame(frameX, frameY, canvasX, canvasY){
-    let cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
-    
+    if(eFACING_LEFT == true){
+        cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
+    }else{
+        cDVEnemy = -((enemy.x - 1000)/1350)
+    }
     if (eFACING_LEFT == true){
         enemyCanvasContext.setTransform(-1, 0, 0, 1, scaledEnemyWidth * 2, 0);
     }else if (eFACING_LEFT == false){

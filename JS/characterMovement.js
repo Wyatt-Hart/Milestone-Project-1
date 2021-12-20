@@ -4,6 +4,7 @@ window.addEventListener("keydown", (e)=>{
 window.addEventListener("keyup", (e)=>{
     if (e.key == "ArrowUp"){
         hasJumped = false
+        hasFlipped = false
         if (player.y != 310){
             while(player.y < 310){
                 jumpDown()
@@ -17,17 +18,39 @@ function movePlayer(){
         if (isAttacking == true && player.y == 310){
             return
         }
-        if (keys["ArrowRight"] && player.x < playerCanvas.width - (player.width * 4)){
-            player.x += MOVEMENT_SPEED
-            if(currentDirection == charIdle || currentDirection == charCrouch){
-                currentDirection = FACING_RIGHT
-                characterImg.src = currentDirection
+        if (keys["ArrowRight"] && player.x < 1245){
+            if(pFACING_RIGHT == true){
+                player.x += MOVEMENT_SPEED
+                if(currentDirection == charIdle || currentDirection == charCrouch){
+                    currentDirection = FACING_RIGHT
+                    characterImg.src = currentDirection
+                }
+            }else if(pFACING_RIGHT == false){
+                if(player.x > -1245){
+                    player.x -= MOVEMENT_SPEED
+                    if(currentDirection == charIdle || currentDirection == charCrouch){
+                        currentDirection = FACING_LEFT
+                        characterImg.src = currentDirection
+                    }
+                }
             }
-        }else if (keys["ArrowLeft"] && player.x > -140){
-            player.x -= MOVEMENT_SPEED
-            if(currentDirection == charIdle || currentDirection == charCrouch){
-                currentDirection = FACING_LEFT
-                characterImg.src = currentDirection
+        }else if (keys["ArrowLeft"]){
+            if(pFACING_RIGHT == true){
+                if( player.x >= -140){
+                    player.x -= MOVEMENT_SPEED
+                    if(currentDirection == charIdle || currentDirection == charCrouch){
+                        currentDirection = FACING_LEFT
+                        characterImg.src = currentDirection
+                    }
+                }
+            }else if(pFACING_RIGHT == false){
+                if (player.x <= 140){
+                    player.x += MOVEMENT_SPEED
+                    if( currentDirection == charIdle || currentDirection == charCrouch){
+                        currentDirection = FACING_RIGHT
+                        characterImg.src = currentDirection
+                    }
+                }
             }
         }else if (keys["ArrowDown"]){
             currentDirection = charCrouch
@@ -38,11 +61,23 @@ function movePlayer(){
             characterImg.x--
         }
     }else if((cDVEnemy+cDVPlayer) >= 0.94 && (cDVEnemy+cDVPlayer) < 0.98){
-        if (keys["ArrowLeft"] && player.x > -140){
-            player.x -= MOVEMENT_SPEED
-            if(currentDirection == charIdle || currentDirection == charCrouch){
-                currentDirection = FACING_LEFT
-                characterImg.src = currentDirection
+        if (keys["ArrowLeft"]){
+            if(pFACING_RIGHT == true){
+                if( player.x >= -140){
+                    player.x -= MOVEMENT_SPEED
+                    if(currentDirection == charIdle || currentDirection == charCrouch){
+                        currentDirection = FACING_LEFT
+                        characterImg.src = currentDirection
+                    }
+                }
+            }else if(pFACING_RIGHT == false){
+                if (player.x <= 140){
+                    player.x += MOVEMENT_SPEED
+                    if( currentDirection == charIdle || currentDirection == charCrouch){
+                        currentDirection = FACING_RIGHT
+                        characterImg.src = currentDirection
+                    }
+                }
             }
         }else if (keys["ArrowDown"]){
             currentDirection = charCrouch
@@ -54,10 +89,20 @@ function movePlayer(){
         }
     }else if((cDVEnemy+cDVPlayer) >= 0.98 && (cDVEnemy+cDVPlayer) < 1.06){
         if (keys["ArrowRight"] && player.x < playerCanvas.width - (player.width * 4)){
-            player.x += MOVEMENT_SPEED
-            if(currentDirection == charIdle || currentDirection == charCrouch){
-                currentDirection = FACING_RIGHT
-                characterImg.src = currentDirection
+            if(pFACING_RIGHT == true){
+                player.x += MOVEMENT_SPEED
+                if(currentDirection == charIdle || currentDirection == charCrouch){
+                    currentDirection = FACING_RIGHT
+                    characterImg.src = currentDirection
+                }
+            }else if(pFACING_RIGHT == false){
+                if(player.x > -1245){
+                    player.x -= MOVEMENT_SPEED
+                    if(currentDirection == charIdle || currentDirection == charCrouch){
+                        currentDirection = FACING_LEFT
+                        characterImg.src = currentDirection
+                    }
+                }
             }
         }else if (keys["ArrowDown"]){
             currentDirection = charCrouch
@@ -73,7 +118,6 @@ function movePlayer(){
     }
 }
 
-let hasFlipped = false
 
 function jump(){
     if(hasJumped == false){
@@ -81,25 +125,28 @@ function jump(){
     }else{
         jumpDown()
     }
-    if ((cDVEnemy+cDVPlayer) >= 0.98 && (cDVEnemy+cDVPlayer) < 1.06 && hasFlipped == false && eFACING_LEFT != false){
-        eFACING_LEFT = false
-        if (enemy.x < 0 && hasFlipped == false){
-            enemy.x = Math.abs(enemy.x)
-            hasFlipped == true
-        }else if (enemy.x > 0 && hasFlipped == false){
-            enemy.x = -1 * Math.abs(enemy.x)
-            hasFlipped == true
-        }
-    }else if((cDVEnemy+cDVPlayer) >= 0.94 && (cDVEnemy+cDVPlayer) < 0.98){
-        eFACING_LEFT = true
-        if (enemy.x < 0 && hasFlipped == false){
-            enemy.x = Math.abs(enemy.x)
-            hasFlipped == true
-        }else if (enemy.x > 0 && hasFlipped == false){
-            enemy.x = -1 * Math.abs(enemy.x)
-            hasFlipped == true
-        }
-    }
+    
+        if ((cDVEnemy+cDVPlayer) >= 0.98 && (cDVEnemy+cDVPlayer) < 1.06 && hasFlipped == false && player.y != 310){
+        hasFlipped == true
+            if(eFACING_LEFT == true){
+                eFACING_LEFT = false
+                pFACING_RIGHT = false
+            }else{
+                eFACING_LEFT = true
+                pFACING_RIGHT = true
+            }
+            if (enemy.x < 0){
+                enemy.x = Math.abs(enemy.x)
+            }else if (enemy.x > 0){
+                enemy.x = -1 * Math.abs(enemy.x)
+            }
+            if (player.x < 0){
+                player.x = Math.abs(player.x)
+            }else if (player.x > 0){
+                player.x = -1 * Math.abs(player.x)
+            }
+        }        
+    console.log("hasFlipped: " + hasFlipped)
 }
 function jumpUp(){
     if (currentDirection != charAirAttack){

@@ -6,6 +6,8 @@ let charJump = './assets/Main_Character/Jump.png'
 let charCrouch = './assets/Main_Character/crouch_idle.png'
 let charAirAttack = './assets/Main_Character/attack_from_air.png'
 let currentDirection = charIdle
+let pFACING_RIGHT = true
+
 
 let characterImg = new Image();
 characterImg.src = currentDirection
@@ -17,8 +19,14 @@ let player = {
     y:(310),
     height: 64,
     width: 64,
-    jumpHeight: (310 - (MOVEMENT_SPEED * 7))
+    jumpHeight: (310 - (MOVEMENT_SPEED * 7)),
+    health: 100,
+    healthBar: document.querySelector("#playerHealthIndicator")
 }
+if (pFACING_RIGHT == false){
+    player.x = -player.x
+}
+player.healthBar.style.width = ((player.health/100) * 77) + "%"
 let cDVPlayer
 
 const characterScale = 3;
@@ -29,6 +37,7 @@ let positionX = 0
 let keyPresses = {}
 
 let hasJumped = false
+let hasFlipped = false
 
 let animationLoopX = [0, 1]
 let animationLoopY = [0, 1, 2, 3]
@@ -44,8 +53,15 @@ function idleCheck(){
     isIdle = (!keys["ArrowRight"] && !keys["ArrowLeft"] && !keys["ArrowDown"] && !keys["ArrowUp"])
 }
 function step(){
-cDVPlayer = (player.x + 150)/1395 //collisionDetectionVariable player
-
+if(pFACING_RIGHT == true){
+    cDVPlayer = (player.x + 150)/1395 //collisionDetectionVariable player
+}else{
+    cDVPlayer = -((player.x - 150)/1395)
+}
+player.healthBar.style.width = ((player.health/100) * 77) + "%"
+player.healthBar.style.height = "40%"
+enemy.healthBar.style.width = ((enemy.health/100) * 77) + "%"
+enemy.healthBar.style.height = "40%"
     idleCheck()
     setTimeout(()=>{
         if(currentXLoopIndex >= animationLoopX.length){
@@ -55,8 +71,8 @@ cDVPlayer = (player.x + 150)/1395 //collisionDetectionVariable player
                 currentYLoopIndex = 0
             }
         }
-        playerCanvasContext.clearRect( 0, 0, playerCanvas.width, playerCanvas.height )
-        enemyCanvasContext.clearRect( 0, 0, enemyCanvas.width, enemyCanvas.height )
+        playerCanvasContext.clearRect( player.x, 0, playerCanvas.width * 2, playerCanvas.height )
+        enemyCanvasContext.clearRect( enemy.x, enemy.y, enemyCanvas.width * 2, enemyCanvas.height )
         drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
         currentXLoopIndex++
         animationIndex++
@@ -73,6 +89,11 @@ cDVPlayer = (player.x + 150)/1395 //collisionDetectionVariable player
             enemyAnimationIndex = 0
         }
     }, 10)
+    if (pFACING_RIGHT == false){
+        playerCanvasContext.setTransform(-1, 0, 0, 1, scaledWidth * 2, 0);
+    }else if (pFACING_RIGHT == true){
+        playerCanvasContext.setTransform(1, 0, 0, 1, 0, 0);
+    }
 }
 
 
