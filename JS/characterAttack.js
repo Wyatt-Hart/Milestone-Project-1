@@ -31,4 +31,30 @@ function attack(){
         isAttacking = false
         animationMax = 8
     }
+
+    if(keys["ArrowDown"]){
+        if(Math.ceil(Math.random()*20) > 19){
+            enemyAttack()
+        }
+    }else{
+        enemyAttack()
+    }
+
+}
+
+function enemyAttack(){
+    if(player.health > 0){
+    if(((cDVEnemy+cDVPlayer) >= 0.95) && ((cDVEnemy+cDVPlayer) <= 1.05) && enemy.health != 0){
+        if(keys["1"]){
+            enemyCurrentYIndex = 10
+        }else{
+        enemyCurrentYIndex = 6
+        if(keys["ArrowDown"]){
+            player.health = player.health - 0.25
+        }else{
+            player.health--
+        }
+    }
+    }
+}
 }

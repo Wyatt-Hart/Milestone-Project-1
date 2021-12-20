@@ -30,6 +30,9 @@ canvas {
     margin-bottom: -600px;
     z-index: -1;
 }
+#playerCanvas {
+    z-index: 1;
+}
 #background{
     position: absolute;
     z-index: -1;
@@ -85,4 +88,31 @@ img[id*="HealthIndicator"]{
 }
 #enemyHealthIndicator {
     right: -0.75vw;
+}
+#startBtn {
+    z-index: 100;
+    text-align: center;
+    margin: auto;
+}
+div[id*="countdown"]{
+    font-size: 5rem;
+    color: white;
+    position: relative;
+    bottom: 20vh;
+    margin-bottom: -6vh;
+}
+#countdown3{
+    opacity: 0;
+}
+#countdown2{
+    opacity: 0;
+    bottom: 22vh;
+}
+#countdown1{
+    opacity: 0;
+    bottom: 24.5vh;
+}
+#countdownF{
+    opacity: 0;
+    bottom: 28.5vh;
 }

@@ -12,6 +12,7 @@
 </head>
 <body>
     <h1>Arena</h1> <!--place holder title-->
+    <button id="startBtn">Start</button>
     <div id="container">
         <canvas id = "background" width="1500" height="500"></canvas>
         <canvas id = "playerCanvas" width="1500" height="500"></canvas>
@@ -25,6 +26,12 @@
                 <img id = "enemyHealthIndicator" src="./assets/Health_Bar/health_indicator.png">
                 <img id = "enemyIcon" src="./assets/Enemy/Enemy_Icon.png">
             </div>
+        </div>
+        <div id="countdownContainer">
+            <div id="countdown3">3</div>
+            <div id="countdown2">2</div>
+            <div id="countdown1">1</div>
+            <div id="countdownF">FIGHT</div>
         </div>
     </div>
     <script src="./JS/newEnemy.js"></script>

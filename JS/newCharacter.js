@@ -64,29 +64,48 @@ enemy.healthBar.style.width = ((enemy.health/100) * 77) + "%"
 enemy.healthBar.style.height = "40%"
     idleCheck()
     setTimeout(()=>{
-        if(currentXLoopIndex >= animationLoopX.length){
-            currentXLoopIndex = 0
-            currentYLoopIndex++
-            if(currentYLoopIndex >= animationLoopY.length){
-                currentYLoopIndex = 0
+        if(player.health > 0){
+            if(currentXLoopIndex >= animationLoopX.length){
+                currentXLoopIndex = 0
+                currentYLoopIndex++
+                if(currentYLoopIndex >= animationLoopY.length){
+                    currentYLoopIndex = 0
+                }
             }
+            playerCanvasContext.clearRect( player.x, 0, playerCanvas.width * 2, playerCanvas.height )
+            drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
+            currentXLoopIndex++
+            animationIndex++
+            if (animationIndex > animationMax){
+                currentXLoopIndex = 0
+                currentYLoopIndex = 0
+                animationIndex = 0
+            }
+        }else{
+            characterImg.src = './assets/Main_Character/Death.png'
+            if(animationIndex<4){
+            if(currentXLoopIndex >= animationLoopX.length){
+                currentXLoopIndex = 0
+                currentYLoopIndex++
+                if(currentYLoopIndex >= animationLoopY.length){
+                    currentYLoopIndex = 0
+                }
+            }
+            playerCanvasContext.clearRect( player.x, 0, playerCanvas.width * 2, playerCanvas.height )
+            drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
+            currentXLoopIndex++
+            animationIndex++
         }
-        playerCanvasContext.clearRect( player.x, 0, playerCanvas.width * 2, playerCanvas.height )
-        enemyCanvasContext.clearRect( enemy.x, enemy.y, enemyCanvas.width * 2, enemyCanvas.height )
-        drawFrame( animationLoopX[ currentXLoopIndex ] * 2, animationLoopY [currentYLoopIndex], 0, 0 )
-        currentXLoopIndex++
-        animationIndex++
-        if (animationIndex > animationMax){
-            currentXLoopIndex = 0
-            currentYLoopIndex = 0
-            animationIndex = 0
         }
     }, 10)
     setTimeout(()=>{
-        drawEnemyFrame( enemyAnimationIndex, enemyCurrentYIndex, 0, 0 )
-        enemyAnimationIndex++
-        if (enemyAnimationIndex > 7){
-            enemyAnimationIndex = 0
+        if(enemyAnimationIndex < 19){
+        enemyCanvasContext.clearRect( enemy.x, enemy.y, enemyCanvas.width * 2, enemyCanvas.height )
+            drawEnemyFrame( enemyAnimationIndex, enemyCurrentYIndex/ 2, 0, 0 )
+            enemyAnimationIndex++
+            if (enemyAnimationIndex > enemyAnimationMaxIndex){
+                enemyAnimationIndex = 0
+            }
         }
     }, 10)
     if (pFACING_RIGHT == false){

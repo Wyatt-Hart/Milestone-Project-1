@@ -4,7 +4,7 @@ let enemyImg = new Image();
 enemyImg.src = './assets/Enemy/enemy_atlas.png'
 let eFACING_LEFT = true
 
-const eMOVEMENT_SPEED = 30
+const eMOVEMENT_SPEED = 20
 
 let enemy = {
     x:-600, //far left is 350, far right is -1000, default - 600
@@ -26,11 +26,16 @@ let enemyPositionX = 0
 
 let enemyAnimationIndex = 0
 let enemyCurrentYIndex = 0
+let enemyAnimationMaxIndex = 7
 let cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
 
 
 
 function drawEnemyFrame(frameX, frameY, canvasX, canvasY){
+    if(enemy.health == 0){
+        enemyCurrentYIndex = 11
+        enemyAnimationMaxIndex = 19
+    }else{
     if(eFACING_LEFT == true){
         cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
     }else{
@@ -41,6 +46,7 @@ function drawEnemyFrame(frameX, frameY, canvasX, canvasY){
     }else if (eFACING_LEFT == false){
         enemyCanvasContext.setTransform(1, 0, 0, 1, 0, 0);
     }
+}
     enemyCanvasContext.drawImage(enemyImg,
                             frameX * enemy.width * 2, frameY * enemy.height, enemy.width * 2, enemy.height,
                             enemy.x, enemy.y, scaledEnemyWidth * 2, scaledEnemyHeight)

@@ -22,13 +22,43 @@ function makeBackground(){
     backgroundContext.drawImage(backgroundImg5, 0, 0, 425, 380, 0, 0, backgroundCanvas.width, backgroundCanvas.height)
 }
 
-
+let isPlaying = false
 function gameLoop(){
     window.requestAnimationFrame(step)
-    movePlayer()
-    attack()
     makeBackground()
+    movePlayer()
+    moveEnemy()
+    attack()
 }
-setInterval(()=>{
+/* setInterval(()=>{
     gameLoop()
-}, framerate)
+}, framerate) */
+
+let startBtn = document.querySelector("#startBtn")
+startBtn.addEventListener("click", ()=>{
+    if(isPlaying == false){
+        console.log("Fight!")
+        setTimeout(()=>{
+            document.getElementById("countdown3").style.opacity = '1'
+        })
+        setTimeout(()=>{
+            document.getElementById("countdown3").style.opacity = '0'
+            document.getElementById("countdown2").style.opacity = '1'
+        }, 1000)
+        setTimeout(()=>{
+            document.getElementById("countdown2").style.opacity = '0'
+            document.getElementById("countdown1").style.opacity = '1'
+        }, 2000)
+        setTimeout(()=>{
+            document.getElementById("countdown1").style.opacity = '0'
+            document.getElementById("countdownF").style.opacity = '1'
+        }, 3000)
+        setTimeout(() => {
+            document.getElementById("countdownF").style.opacity = '0'
+            setInterval(()=>{
+                gameLoop()
+            }, framerate)
+            isPlaying = true
+        }, 4000);
+    }
+})

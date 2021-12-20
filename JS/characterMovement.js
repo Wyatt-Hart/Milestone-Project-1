@@ -14,6 +14,15 @@ window.addEventListener("keyup", (e)=>{
     delete keys[e.key]
 })
 function movePlayer(){
+    if(player.health < 0){
+        characterImg.src = './assets/Main_Character/Death.png'
+        currentXLoopIndex = 0
+        currentYLoopIndex = 0
+        animationLoopX = [0, 1]
+        animationLoopY = [0, 1]
+        animationIndex = 0
+        return
+    }else if(player.health > 0){
     if (((cDVEnemy+cDVPlayer) < 0.94 || (cDVEnemy+cDVPlayer) > 1.06) || player.y != 310){
         if (isAttacking == true && player.y == 310){
             return
@@ -117,6 +126,7 @@ function movePlayer(){
         jump()
     }
 }
+}
 
 
 function jump(){
@@ -167,5 +177,30 @@ function jumpDown(){
     }
     if(player.y == 310 && characterImg.src != currentDirection){
         characterImg.src = currentDirection
+    }
+}
+
+
+function moveEnemy(){
+    if(enemy.health != 0){
+        if((cDVEnemy+cDVPlayer) < 0.95){
+            // if((Math.ceil(Math.random()*10)) < 10){
+            enemy.x += eMOVEMENT_SPEED
+            /* }else {
+                enemy.x -= eMOVEMENT_SPEED
+            } */
+            enemyCurrentYIndex = 1
+        }else if((cDVEnemy+cDVPlayer) > 1.05){
+            // if((Math.ceil(Math.random()*10)) < 10){
+                enemy.x += eMOVEMENT_SPEED
+                /* }else {
+                    enemy.x -= eMOVEMENT_SPEED
+                } */
+            if(enemyCurrentYIndex != 1){
+            enemyCurrentYIndex = 1
+            }
+        }else if(enemyCurrentYIndex != 0){
+            enemyCurrentYIndex = 0
+        }
     }
 }
