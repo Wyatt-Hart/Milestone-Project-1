@@ -11,10 +11,15 @@ window.addEventListener("keyup", (e)=>{
             }
         }
     }
+    if(e.key == "1"){
+        isBlocking = false
+        isFleeing = false
+    }
     delete keys[e.key]
 })
 function movePlayer(){
-    if(player.health < 0){
+    if(player.health < 1){
+        document.getElementById("gameOver").style.opacity = 1
         characterImg.src = './assets/Main_Character/Death.png'
         currentXLoopIndex = 0
         currentYLoopIndex = 0
@@ -137,7 +142,6 @@ function jump(){
     }
     
         if ((cDVEnemy+cDVPlayer) >= 0.98 && (cDVEnemy+cDVPlayer) < 1.06 && hasFlipped == false && player.y != 310){
-        hasFlipped == true
             if(eFACING_LEFT == true){
                 eFACING_LEFT = false
                 pFACING_RIGHT = false
@@ -145,6 +149,7 @@ function jump(){
                 eFACING_LEFT = true
                 pFACING_RIGHT = true
             }
+            hasFlipped = true
             if (enemy.x < 0){
                 enemy.x = Math.abs(enemy.x)
             }else if (enemy.x > 0){
@@ -155,8 +160,7 @@ function jump(){
             }else if (player.x > 0){
                 player.x = -1 * Math.abs(player.x)
             }
-        }        
-    console.log("hasFlipped: " + hasFlipped)
+        }
 }
 function jumpUp(){
     if (currentDirection != charAirAttack){
@@ -184,18 +188,10 @@ function jumpDown(){
 function moveEnemy(){
     if(enemy.health != 0){
         if((cDVEnemy+cDVPlayer) < 0.95){
-            // if((Math.ceil(Math.random()*10)) < 10){
             enemy.x += eMOVEMENT_SPEED
-            /* }else {
-                enemy.x -= eMOVEMENT_SPEED
-            } */
             enemyCurrentYIndex = 1
         }else if((cDVEnemy+cDVPlayer) > 1.05){
-            // if((Math.ceil(Math.random()*10)) < 10){
                 enemy.x += eMOVEMENT_SPEED
-                /* }else {
-                    enemy.x -= eMOVEMENT_SPEED
-                } */
             if(enemyCurrentYIndex != 1){
             enemyCurrentYIndex = 1
             }

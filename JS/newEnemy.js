@@ -12,8 +12,9 @@ let enemy = {
     height: 224,
     width: 112,
     jumpHeight: (77 - (eMOVEMENT_SPEED * 7)),
-    health: 100,
-    healthBar: document.querySelector("#enemyHealthIndicator")
+    health: 600,
+    healthBar: document.querySelector("#enemyHealthIndicator"),
+    isAttacking: false
 }
 
 
@@ -33,6 +34,7 @@ let cDVEnemy = (enemy.x + 1000)/1350 //collisionDetectionVariable enemy
 
 function drawEnemyFrame(frameX, frameY, canvasX, canvasY){
     if(enemy.health == 0){
+        document.getElementById("victory").style.opacity = 1
         enemyCurrentYIndex = 11
         enemyAnimationMaxIndex = 19
     }else{

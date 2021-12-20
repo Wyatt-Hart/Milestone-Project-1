@@ -60,7 +60,7 @@ if(pFACING_RIGHT == true){
 }
 player.healthBar.style.width = ((player.health/100) * 77) + "%"
 player.healthBar.style.height = "40%"
-enemy.healthBar.style.width = ((enemy.health/100) * 77) + "%"
+enemy.healthBar.style.width = ((enemy.health/100) * 77 / 6) + "%"
 enemy.healthBar.style.height = "40%"
     idleCheck()
     setTimeout(()=>{

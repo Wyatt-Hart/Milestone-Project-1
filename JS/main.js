@@ -24,6 +24,9 @@ function makeBackground(){
 
 let isPlaying = false
 function gameLoop(){
+    if(player.health < 1){
+        document.getElementById("gameOver").style.opacity = 1
+    }
     window.requestAnimationFrame(step)
     makeBackground()
     movePlayer()
@@ -38,6 +41,7 @@ let startBtn = document.querySelector("#startBtn")
 startBtn.addEventListener("click", ()=>{
     if(isPlaying == false){
         console.log("Fight!")
+        document.getElementById("startBtn").style.opacity = '0'
         setTimeout(()=>{
             document.getElementById("countdown3").style.opacity = '1'
         })

@@ -7,7 +7,12 @@ body {
     z-index: -2;
     border: 1px solid black;
     background-color: #EECD9C;
-    background-image: url('./assets/Background/Daedric-Text.png');
+    background-image: url('./assets/Background/Daedric-Text.png'), 
+    -moz-linear-gradient(top, #EECD9C 0%, black 100%);
+    background-image: url('./assets/Background/Daedric-Text.png'), 
+    -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EECD9C), color-stop(100%, black));
+    background-image: url('./assets/Background/Daedric-Text.png'), 
+    linear-gradient(to bottom, #EECD9C, black);
     background-position-y: -3vh;
     position: absolute;
     top: 10vh;
@@ -91,7 +96,19 @@ img[id*="HealthIndicator"]{
 }
 #startBtn {
     z-index: 100;
+    background-color: rgba(rgba(255, 0, 0, 0), rgba(0, 128, 0, 0), rgba(0, 0, 255, 0), 0);
+    background-image: url("./assets/banner.png");
+    background-size: cover;
+    font-size: 4rem;
+    width: 17rem;
+    height: 8rem;
+    background-position-x: center;
+    background-color: rgba(255, 0, 0, 0);
+    border: none;
     text-align: center;
+    position: relative;
+    left: 43vw;
+    top: 25vh;
     margin: auto;
 }
 div[id*="countdown"]{
@@ -115,4 +132,19 @@ div[id*="countdown"]{
 #countdownF{
     opacity: 0;
     bottom: 28.5vh;
+}
+#victory{
+    position: absolute;
+    width: 15vw;
+    z-index: 100;
+    left: 42vw;
+    top: 20vh;
+    opacity: 0;
+}
+#gameOver{
+    position: absolute;
+    width: 15vw;
+    left: 42vw;
+    top: 20vh;
+    opacity: 0;
 }
